@@ -1,0 +1,41 @@
+### Registracija
+POST http://localhost:8080/users/register
+Content-Type: application/json
+
+{
+  "name": "filip",
+  "email": "filip@gmail.com",
+  "password": "geslo123"
+}
+
+###
+# Login
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+  "email": "admin@admin.si",
+  "password": "admin"
+}
+> {%
+  client.global.set("token", response.body.token);
+%}
+
+###
+
+# join
+POST  http://localhost:8080/match/join
+Content-Type: application/json
+Authorization: Bearer {{token}}
+###
+
+# Assign matches
+POST http://localhost:8080/match/assign
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+
+}
+
+###
