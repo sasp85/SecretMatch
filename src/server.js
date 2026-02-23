@@ -9,7 +9,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { authenticateToken } from './middleware/authMiddleware.js';
 import { requireAdmin } from './middleware/adminMiddleware.js';
-import { assignMatches } from './services/matchService.js';
+import { assignMatches, viewMatches } from './services/matchService.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -177,6 +177,18 @@ app.post('/match/assign',authenticateToken, requireAdmin, async (req, res) => {
   }
 })
 
-app.post('/match/view', authenticateToken, async (req, res) => {
+app.get('/match/view', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
 
+    const receiver = await viewMatches(db, userId);
+
+    if(!receiver) return res.status(404).json({ message: 'Match not found' });
+
+    res.status(200).json({receiver});
+
+  }catch(err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to fetch match'});
+  }
 })

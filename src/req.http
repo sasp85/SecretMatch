@@ -37,5 +37,12 @@ Authorization: Bearer {{token}}
 {
 
 }
-
 ###
+
+# View matches
+GET http://localhost:8080/match/view
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+}

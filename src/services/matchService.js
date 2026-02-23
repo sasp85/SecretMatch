@@ -40,12 +40,18 @@ export async function assignMatches(db) {
   });
 }
 
-export async function viewMatches(db) {
-  const giverSql = 'SELECT giverId FROM matches WHERE recieverId = user.id';
-  const recieverSql = 'SELECT recieverId FROM matches WHERE giverId = user.id';
+export async function viewMatches(db, userId) {
+  return new Promise((resolve, reject) => {
+    const sql =
+      'SELECT u.id, u.name, u.email\n' +
+      '      FROM matches m\n' +
+      '      JOIN uporabniki u ON u.id = m.recieverId\n' +
+      '      WHERE m.giverId = ?';
 
-  db.query(giverSql, (err) => {
-    if (err)
+    db.query(sql, [userId], (err, result) => {
+      if (err) return reject(err);
 
-  })
+      resolve(result[0]);
+    });
+  });
 }
