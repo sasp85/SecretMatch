@@ -7,16 +7,44 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build output
 dist
 dist-ssr
+
+# Environment
+.env
+.env.*
+
+# Local configs
 *.local
+
+# Cache
+.cache
+.parcel-cache
+.eslintcache
+
+# Coverage
+coverage
+.nyc_output
+
+# Databases
+*.sqlite
+*.sqlite3
+*.db
+
+# Runtime
+tmp
+temp
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj

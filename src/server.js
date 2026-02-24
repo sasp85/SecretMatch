@@ -1,20 +1,11 @@
-
 import express from 'express';
 import jwt from 'jsonwebtoken';
 const app = express();
-import mysql from 'mysql2';
 import * as bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { authenticateToken } from './middleware/authMiddleware.js';
 import { requireAdmin } from './middleware/adminMiddleware.js';
 import { assignMatches, viewMatches } from './services/matchService.js';
-
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+import { db } from './db/connection.js';
 
 const jwtSecret = process.env.JWT_SECRET;
 if (!jwtSecret) {
@@ -22,20 +13,9 @@ if (!jwtSecret) {
   process.exit(1);
 }
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'zvezek12',
-  database: 'secret_match'
-})
 
-db.connect((err) => {
-  if (err) {
-    console.error('Database connection failed:', err);
-    return;
-  }
-  console.log('Connected to MySQL');
-});
+
+
 
 
 app.use(express.json());
