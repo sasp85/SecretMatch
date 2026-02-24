@@ -16,7 +16,7 @@ dist-ssr
 
 # Environment
 .env
-.env.*
+
 
 # Local configs
 *.local
